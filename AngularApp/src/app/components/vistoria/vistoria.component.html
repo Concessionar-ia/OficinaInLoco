@@ -1,0 +1,66 @@
+  <div *ngIf="isNew" class="tarefa-form">    
+      <h2>Criar Nova Vistoria</h2>
+      <form (ngSubmit)="save()">
+        <div class="form-group">
+          <label for="dataPrevista">Data prevista para a vistoria:</label>
+          <input 
+            type="text" 
+            id="dataInicio" 
+            [(ngModel)]="vistoria.dataPrevista" 
+            name="dataInicio" 
+            pattern="\d{2}/\d{2}/\d{4}" 
+            placeholder="dd/mm/aaaa"
+            required>
+        </div>
+        <div class="form-group">
+            <label for="dataRealizacao">Data da realização:</label>
+            <input 
+              type="text" 
+              id="dataRealizacao" 
+              [(ngModel)]="vistoria.dataRealizacao" 
+              name="dataRealizacao" 
+              pattern="\d{2}/\d{2}/\d{4}" 
+              placeholder="dd/mm/aaaa">
+        </div>
+
+        <div class="form-group">
+            <label for="responsavel">Responsável:</label>
+            <select id="responsavel" [(ngModel)]="vistoria.responsavel" name="responsavel" class="form-select" required>
+              <option [ngValue]="null">Nenhum</option>
+              <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{ usuario.nome }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="status_andamento">Status do Andamento:</label>
+            <select id="status_andamento" [(ngModel)]="vistoria.status_andamento" name="status_andamento" required>
+              <option value="Não iniciada">Não iniciada</option>
+              <option value="Em andamento">Em andamento</option>
+              <option value="Concluído">Concluído</option>
+            </select>
+          </div>
+
+  
+        <div class="form-buttons">
+          <button type="submit" class="btn btn-primary">Salvar</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  
+    <div *ngIf="!isNew">
+    <h4>Editar Vistoria</h4>
+      <p><strong>Data Início:</strong> {{ vistoria.dataPrevista | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Data Fim:</strong> {{ vistoria.dataRealizacao | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Andamento:</strong> {{ vistoria.status_andamento }} </p>
+      <p><strong>Situação:</strong> {{ vistoria.status_tempo }} </p>
+      <hr/>
+  
+
+    <!-- Inserir app-lista-check-list
+    <app-lista-planos-acao [vistoriaId]="vistoria.id"> </app-lista-planos-acao>
+    -->
+    <app-lista-item-check-list [vistoriaId]="vistoria.id"> </app-lista-item-check-list>
+</div>
+    
+     

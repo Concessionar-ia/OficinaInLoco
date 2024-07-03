@@ -1,0 +1,31 @@
+<h3> Check List </h3>
+
+<div class="header">
+  <button (click)="createItem()" class="btn btn-primary">+ Adicionar Item</button>
+</div>
+
+
+<table>
+  <thead>
+<tr>
+      <th>Descrição</th>
+      <th>Preenchido?</th>
+      <th>Resposta</th>
+      <th>Vistoria</th>  
+      <th>Plano de Ação</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of filteredItens">
+      <td>{{ item.item }}</td>
+      <td>{{ item.resposta !== '' ? (item.resposta.length > 0 ? 'Sim' : 'Não') : 'Não' }}</td>
+      <td>{{ item.resposta }}</td>
+      <td>{{ item.id_vistoria }}</td>
+      <td>{{ item.id_plano_acao }}</td>
+      <td>
+        <button (click)="editItem(item.id)" class="btn btn-edit">Editar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

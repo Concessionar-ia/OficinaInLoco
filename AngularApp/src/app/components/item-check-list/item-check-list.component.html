@@ -1,0 +1,47 @@
+<div class="check">
+<form (ngSubmit)="save()">
+<div *ngIf="isNew">
+    <h2>Criar novo Item para o Check-List</h2>
+          <div class="form-group">
+              <label for="titulo">Título:</label>
+              <input type="text" id="item" [(ngModel)]="item.item" name="item" required>
+
+              <label for="titulo">Comentário:</label>
+              <input type="text" id="comentario" [(ngModel)]="item.comentario" name="comentario" required>
+          </div>
+      
+</div>
+
+<div *ngIf="!isNew">
+  <h2>{{ item.item }}</h2>
+  <div class="form-buttons">
+      <button type="button" class="btn btn-secondary">N/A</button>
+      <button type="button" class="btn btn-secondary">Ruim</button>
+      <button type="button" class="btn btn-secondary">Médio</button>
+      <button type="button" class="btn btn-secondary">Bom</button>
+      <button type="button" class="btn btn-secondary">Ótimo</button>
+  </div>
+<br/>
+  <div class="form-group">
+    <label for="descricao">Descrição:</label>
+    <input type="text" id="descricao" [(ngModel)]="item.comentario" name="comentario" required>
+  </div>
+
+  <div class="form-group">
+    <label for="plano_acao">Plano de Ação:</label>
+  </div>
+
+
+
+  <div class="form-group">
+    <label for="midia">Mídia: </label>    
+    </div>
+
+</div>
+<div class="form-buttons">
+    <button type="submit" class="btn btn-primary">{{ isNew ? 'Criar' : 'Salvar' }}</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+  </div>
+
+</form>
+</div>

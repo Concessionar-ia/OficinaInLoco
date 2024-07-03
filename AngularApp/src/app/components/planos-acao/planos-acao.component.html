@@ -1,0 +1,71 @@
+<div class="tarefa-form">
+    <h2 *ngIf="isNew">Criar novo plano de ação </h2>
+    <h2 *ngIf="!isNew">Editar plano de ação </h2>
+    <form (ngSubmit)="savePlanoAcao()">
+      <div class="form-group">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" [(ngModel)]="planoAcao.titulo" name="titulo" required>
+      </div>
+
+      <div class="form-group">
+        <label for="descricao">Descrição:</label>
+        <input type="text" id="descricao" [(ngModel)]="planoAcao.descricao" name="descricao">
+      </div>
+
+      <div class="form-group">
+        <label for="prazo"> Prazo:
+          <input type="date" id="prazo"[(ngModel)]="planoAcao.prazo" name="prazo" required>
+        </label>
+      </div>
+  
+      <div class="form-group">
+        <label for="responsavel">Responsável:</label>
+        <select id="responsavel" [(ngModel)]="planoAcao.responsavel" name="responsavel" class="form-select" required>
+          <option [ngValue]="null">Nenhum</option>
+          <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{ usuario.nome }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="status_andamento">Status do Andamento:</label>
+        <select id="status_andamento" [(ngModel)]="planoAcao.status_andamento" name="status_andamento" required>
+          <option value="Não iniciada">Não iniciada</option>
+          <option value="Em andamento">Em andamento</option>
+          <option value="Concluído">Concluído</option>
+        </select>
+      </div>
+
+      <!-- Implementar o status. Faltou isso na definição 
+      <div class="form-group" *ngIf="planoAcao">
+        <label for="status_andamento">Status do Andamento:</label>
+        <select id="status_andamento" [(ngModel)]="atividade.status_andamento" name="status_andamento" required>
+          <option value="Não iniciada">Não iniciada</option>
+          <option value="Em andamento">Em andamento</option>
+          <option value="Concluído">Concluído</option>
+        </select>
+      </div>
+      -->
+  
+        <div class="form-group">
+            <label for="checkListOrigem">Check list de origem</label>
+            <select id="checkListOrigem" [(ngModel)]="planoAcao.checkListOrigem" name="checkListOrigem" class="form-select" required>
+                <option [ngValue]="null">Nenhum</option>
+                <option *ngFor="let item of itensCheckList" [ngValue]="item">{{ item.item }}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="cronogramaOrigem">Cronograma de origem</label>
+            <select id="cronogramaOrigem" [(ngModel)]="planoAcao.cronogramaOrigem" name="cronogramaOrigem" class="form-select" required>
+                <option [ngValue]="null">Nenhum</option>
+                <option *ngFor="let cronograma of cronogramas" [ngValue]="cronograma">{{ cronograma.titulo }}</option>
+              </select>
+        </div>
+
+          <div class="form-buttons">
+
+        <button type="submit" class="btn btn-primary">{{ isNew ? 'Criar' : 'Salvar' }}</button>
+        <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+      </div>
+    </form>
+  </div>

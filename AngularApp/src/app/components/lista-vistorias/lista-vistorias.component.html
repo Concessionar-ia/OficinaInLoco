@@ -1,0 +1,72 @@
+<h3> Vistorias </h3>
+
+<div class="filter">
+  <h3>Filtros:</h3>
+</div>
+<div class="filters">
+  
+    <div class="filters">
+        <div class="filter">
+          <label for="statusTempo">Situação:</label>
+          <select [(ngModel)]="statusTempoFilter" (ngModelChange)="applyFilters()" id="statusTempo" class="filter-select">
+            <option value="">Todos</option>
+            <option value="Em atraso">Em atraso</option>
+            <option value="No prazo">No prazo</option>
+          </select>
+        </div>
+
+  <div class="filter">
+    <label for="statusAndamento">Status:</label>
+    <select [(ngModel)]="statusAndamentoFilter" (ngModelChange)="applyFilters()" id="statusAndamento" class="filter-select">
+      <option value="">Todos</option>
+      <option value="Não iniciada">Não iniciada</option>
+      <option value="Iniciada">Iniciada</option>
+      <option value="Concluída">Concluída</option>
+    </select>
+  </div>
+
+  <div class="filter">
+    <label for="responsavel">Responsável:</label>
+    <input type="text" [(ngModel)]="responsavelFilter" (ngModelChange)="applyFilters()" id="responsavel" class="filter-input">
+  </div>
+  </div>
+  </div>
+  
+  <!--div class="filter">
+    <label for="dataPrevista">Título ou Descrição</label>
+    <input type="text" [(ngModel)]="dataPrevista" (ngModelChange)="applyFilters()" id="dataPrevista" class="filter-input">
+  </div>
+</div -->
+
+
+<div class="vistoria">
+    <div class="header">
+      <button (click)="navigateToNew()">+ Criar Vistoria</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Unidade</th>
+          <th>Responsável</th>
+          <th>Data prevista</th>
+          <th>Data da realizaçao</th>
+          <th>Status</th>
+          <th>Situação</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredItens">
+          <td>TODO: Criar unidade</td>
+          <td>{{ item.responsavel?.nome }}</td>
+          <td>{{ item.dataPrevista | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ item.dataRealizacao | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ item.status_andamento }}</td>
+          <td>{{ item.responsavel?.nome }}</td>
+          <td>
+            <button (click)="navigateToVistoria(item.id)" class="btn btn-edit">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -1,0 +1,78 @@
+<div class="tarefa-form">
+  <h2>{{ isNew ? 'Criar Nova Atividade' : 'Editar Atividade' }}</h2>
+  <form (ngSubmit)="saveAtividade()">
+    <div class="form-group">
+      <label for="descricao">Descrição:</label>
+      <input type="text" id="descricao" [(ngModel)]="atividade.descricao" name="descricao" required>
+    </div>
+    <div class="form-group" *ngIf="!atividade.pai">
+      <label>A data inicial é fixa ou depende de outra tarefa?</label>
+      <label>
+        <input type="radio" [(ngModel)]="atividade.data_fixa" name="dataFixa" [value]="true" class="larger-radio"> Fixa
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="atividade.data_fixa" name="dataFixa" [value]="false" class="larger-radio"> Outra tarefa
+      </label>
+    </div>
+
+    <!-- Campos que ficam invisíveis se data_fixa for true -->
+    <div *ngIf="!atividade.data_fixa && !atividade.pai">
+      <div class="form-group">
+        <label for="atividade_anterior">Atividade Anterior:</label>
+        <select id="atividade_anterior" [(ngModel)]="atividade.atividade_anterior" name="atividade_anterior" class="form-select">
+          <option *ngFor="let atv of atividades" [ngValue]="atv" [disabled]="atv.id === atividade.id">{{ atv.descricao }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tipo_relacao_atividade_anterior">Tipo de Relação:</label>
+        <select id="tipo_relacao_atividade_anterior" [(ngModel)]="atividade.tipo_relacao_atividade_anterior" name="tipo_relacao_atividade_anterior" class="form-select">
+          <option value="Após o início">Após o início</option>
+          <option value="Após o fim">Após o fim</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="deslocamento_dias_atividade_anterior">Deslocamento (dias):</label>
+        <input type="number" id="deslocamento_dias_atividade_anterior" [(ngModel)]="atividade.deslocamento_dias_atividade_anterior" name="deslocamento_dias_atividade_anterior" required>
+      </div>
+    </div>
+
+    <!-- Campos que ficam invisíveis se data_fixa for false -->
+    <div *ngIf="atividade.data_fixa && !atividade.Pai">
+      <div class="form-group">
+        <label for="dataInicioEsperada">Data de Início Esperada:</label>
+        <input type="date" id="dataInicioEsperada" [(ngModel)]="atividade.dataInicioEsperada" name="dataInicioEsperada" required>
+      </div>
+      <div class="form-group">
+        <label for="dataFimEsperada">Data de Fim Esperada:</label>
+        <input type="date" id="dataFimEsperada" [(ngModel)]="atividade.dataFimEsperada" name="dataFimEsperada" required>
+      </div>
+    </div>
+
+    <div class="form-group" *ngIf="atividade.Pai">
+      <label for="responsavel">Responsável:</label>
+      <select id="responsavel" [(ngModel)]="atividade.responsavel" name="responsavel" class="form-select" required>
+        <option [ngValue]="null">Nenhum</option>
+        <option *ngFor="let usuario of usuarios" [ngValue]="usuario">{{ usuario.nome }}</option>
+      </select>
+    </div>
+    <div class="form-group" *ngIf="atividade.Pai">
+      <label for="status_andamento">Status do Andamento:</label>
+      <select id="status_andamento" [(ngModel)]="atividade.status_andamento" name="status_andamento" required>
+        <option value="Não iniciada">Não iniciada</option>
+        <option value="Em andamento">Em andamento</option>
+        <option value="Concluído">Concluído</option>
+      </select>
+    </div>
+
+    <div class="form-group" *ngIf="atividade.Pai">
+      <label for="atividade_pai">Atividade Pai:</label>
+      <select id="atividade_pai" [(ngModel)]="atividade.atividade_pai" name="atividade_pai" class="form-select">
+        <option *ngFor="let atv of atividades" [ngValue]="atv" [disabled]="atv.id === atividade.id">{{ atv.descricao }}</option>
+      </select>
+    </div>
+    <div class="form-buttons">
+      <button type="submit" class="btn btn-primary">{{ isNew ? 'Criar' : 'Salvar' }}</button>
+      <button type="button" class="btn btn-secondary" (click)="cancel()">Cancelar</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,65 @@
+<h3> Planos de ação</h3>
+
+<div class="filter">
+  <h3>Filtros:</h3>
+</div>
+<div class="filters">
+  
+  <div class="filter">
+    <label for="statusAndamento">Status:</label>
+    <select [(ngModel)]="statusAndamentoFilter" (ngModelChange)="applyFilters()" id="statusAndamento" class="filter-select">
+      <option value="">Todos</option>
+      <option value="Não iniciada">Não iniciada</option>
+      <option value="Iniciada">Iniciada</option>
+      <option value="Concluída">Concluída</option>
+    </select>
+  </div>
+
+  <div class="filter">
+    <label for="responsavel">Responsável:</label>
+    <input type="text" [(ngModel)]="responsavelFilter" (ngModelChange)="applyFilters()" id="responsavel" class="filter-input">
+  </div>
+  
+  <div class="filter">
+    <label for="descricao">Título ou Descrição</label>
+    <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="applyFilters()" id="descricao" class="filter-input">
+  </div>
+</div>
+
+
+
+<div class="plano-acao">
+    <div class="header">
+      <button (click)="navigateToNew()">+ Criar Plano de ação</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Descricao</th>
+          <th>Origem</th>
+          <th>Inicio previsto</th>
+          <th>Prazo final</th>
+          <th>Duração</th>
+          <th>Andamento</th>
+          <th>Responsável</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of filteredItens">
+          <td>{{ item.descricao }}</td>
+          <td *ngIf="item.checkListOrigem != null"> CheckListItem: {{item.checkListOrigem.id_vistoria}}</td>
+          <td *ngIf="item.cronogramaOrigem != null"> Cronograma: {{item.cronogramaOrigem.id}}</td>
+          <td *ngIf="item.checkListOrigem == null && item.cronogramaOrigem == null"> - </td>
+          <td>{{ item.dataInicio | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ item.prazo | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ item.duracao }}</td>
+          <td> {{ item.status_andamento }} </td>
+          <td>{{ item.responsavel?.nome }}</td>
+          <td>
+            <button (click)="navigateToPlanoAcao(item.id)" class="btn btn-edit">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -1,0 +1,28 @@
+<h3>Lista de Cronogramas</h3>
+  <div class="cronograma">
+      <div class="header">
+        <button (click)="navigateToNew()">Novo</button>
+        <button>Filtrar</button>
+        <input type="text" placeholder="Digite para pesquisar">
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Início Previsto</th>
+            <th>Fim Previsto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cronograma of items">
+            <td>{{ cronograma.titulo }}</td>
+            <td>{{ cronograma.dataInicio | date:'dd/MM/yyyy' }}</td>
+            <td>{{ cronograma.dataFim | date:'dd/MM/yyyy' }}</td>
+            <td>
+              <button (click)="navigateToCronograma(cronograma.id)" class="btn btn-edit">Editar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
